@@ -7,7 +7,6 @@ from textblog import logger
 
 urlpatterns = [
     path('', blog.home, name='home'),
-    path('logger-test/', logger.logger_test),
 
     # Staff dashboard
     path('staff/', RedirectView.as_view(pattern_name='staff_dashboard', permanent=False)),
@@ -41,8 +40,8 @@ urlpatterns = [
     path('<id>/dashboard/email-list/', emailer.email_list, name='email_list'),
 
     # Media
-    path('<id>/dashboard/media/', media.media_center, name='media_center'),
-    path('<id>/dashboard/media/delete-selected/', media.delete_selected_media, name='delete_selected_media'),
+    # path('<id>/dashboard/media/', media.media_center, name='media_center'),
+    # path('<id>/dashboard/media/delete-selected/', media.delete_selected_media, name='delete_selected_media'),
     path('<id>/dashboard/upload-image/', media.upload_image, name='upload_image'),
     path('media/<str:img>/', media.image_proxy, name="image-proxy"),
 
@@ -61,7 +60,6 @@ urlpatterns = [
     path('<id>/dashboard/post-template/', studio.post_template, name="post_template"),
 
     # Webhook
-    path('lemon-webhook/', subscriptions.lemon_webhook, name='lemon_webhook'),
 
     # Discover
     path('discover/', discover.discover, name='discover'),

@@ -3,9 +3,9 @@
 
 {% block title %}
 {% if post %}
-Editing {{ post.title }} | Bear Blog
+Editando {{ post.title }}@Ichoria★Blogs
 {% else %}
-New post | Bear Blog
+Nuevo post@Ichoria★Blogs
 {% endif %}
 {% endblock %}
 
@@ -29,49 +29,49 @@ New post | Bear Blog
         <button
             onclick="event.preventDefault(); sessionStorage.clear(); window.location = '{% if post.is_page or is_page %}{% url 'pages_edit' id=blog.subdomain %}{% else %}{% url 'posts_edit' id=blog.subdomain %}{% endif %}'"
         >
-            &#8592; Back
+            &#8592; Volver
         </button>
-        <button type="submit" onclick="document.getElementById('publish').value = true;">Publish</button>
+        <button type="submit" onclick="document.getElementById('publish').value = true;">Publicar</button>
         
         {% if post %}
-            <button onclick="event.preventDefault(); window.open('{{ blog.dynamic_useful_domain }}/{{ post.slug }}{% if not post.publish %}?token={{ post.token }}{% endif %}');">
-                View{% if not post.publish %} draft{% endif %}
+            <button onclick="event.preventDefault(); window.open('https://{{ blog.subdomain }}.ichoria.cc/{{ post.slug }}{% if not post.publish %}?token={{ post.token }}{% endif %}');">
+                Visualizar{% if not post.publish %} borrador{% endif %}
             </button>
             <button
                 style="color: red; float: right;"
                 onclick="event.preventDefault();if(confirm('Are you sure?')){window.location = '/{{ blog.subdomain }}/dashboard/posts/{{ post.uid }}/delete/';}"
             >
-                Delete
+                Eliminar
             </button>
         {% endif %}
         <button type="submit" {% if post.publish %}style="color: lightsalmon;"{% endif %} onclick="document.getElementById('publish').value = false;">
             {% if post.publish %}
-            Unpublish
+            Hacer privado
             {% else %}
-            Save as draft
+            Guardar como borrador
             {% endif %}
         </button>
     </p>
 
     <details style="font-size: 12px; margin-bottom: 10px;">
         <summary>
-            Attributes
+          Atributos de cabecera
         </summary>
         <p>
-            title: I like Bears<br>
-            link: i-like-bears<br>
+            title: Título del post<br>
+            link: titulo-del-post<br>
             alias: 2012/01/02/cool-post.html<br>
-            canonical_url: https://example.com/bears<br>
+            canonical_url: https://ejemplo.tld/blabla<br>
             published_date: 2022-12-30 08:30<br>
             is_page: false<br>
-            meta_description: Look for the bear necessities.<br>
-            meta_image: https://example.com/image.jpeg<br>
-            lang: en<br>
-            tags: {% if blog.tags %}{{ blog.tags|join:", " }}{% else %}bears, writing, thoughts{% endif %}<br>
+            meta_description: Breve descripción del contenido del post.<br>
+            meta_image: https://ejemplo.tld/image.png<br>
+            lang: es<br>
+            tags: {% if blog.tags %}{{ blog.tags|join:", " }}{% else %}etiquetas,separadas,por,coma{% endif %}<br>
             make_discoverable: true
         </p>
         <a href="https://docs.bearblog.dev/post" target="_blank">
-            More info
+          Documentación (en inglés)
         </a>
     </details>
     
@@ -105,17 +105,16 @@ New post | Bear Blog
         name="body_content"
         id="body_content"
         style="min-height: 500px;border-top: 1px solid lightgrey;"
-        placeholder="..."
+        placeholder="Cuéntanos tus ideas..."
     >{% if post %}{{ post.content }}{% else %}{{ template_body }}{% endif %}</textarea>
 
     <span class="helptext sticky">
         <span>
-            <a href='https://herman.bearblog.dev/markdown-cheatsheet/' target='_blank'>Markdown syntax</a>
+            <a href='https://tutorialmarkdown.com/guia' target='_blank'>Guía de Markdown</a>
         </span>
         <span>
-            <a id='upload-image'>Insert image</a> |
-            <a href="{% url 'media_center' id=blog.subdomain %}" target="_blank">Media</a> |
-            <a id="preview">Preview</a>
+            <a id='upload-image'>Insertar imágen</a> |
+            <a id="preview">Vista previa</a>
         </span>
     </span>
 </form>

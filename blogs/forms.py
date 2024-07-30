@@ -8,9 +8,9 @@ import re
 class BlogForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(BlogForm, self).__init__(*args, **kwargs)
-        self.fields['title'].widget.attrs.update({'placeholder': 'A title for your blog...'})
+        self.fields['title'].widget.attrs.update({'placeholder': 'Título de tu blog'})
         self.fields['title'].label = False
-        self.fields['subdomain'].widget.attrs.update({'placeholder': 'Preferred subdomain...'})
+        self.fields['subdomain'].widget.attrs.update({'placeholder': 'Subdominio'})
         self.fields['subdomain'].label = False
 
     class Meta:
@@ -21,16 +21,16 @@ class BlogForm(forms.ModelForm):
 class DashboardCustomisationForm(forms.ModelForm):
     dashboard_styles = forms.CharField(
         widget=forms.Textarea(),
-        label="Dashboard styles",
+        label="Estilo del panel",
         required=False,
-        help_text="Change the way your dashboard looks and feels with CSS."
+        help_text="Cambia el estilo del panel con CSS."
     )
 
     dashboard_footer = forms.CharField(
         widget=forms.Textarea(),
-        label="Dashboard footer content",
+        label="Contenido del pie de página",
         required=False,
-        help_text="Add scripts and other footer content to your dashboard."
+        help_text="Añade scripts y demás contenido al pie de página."
     )
 
     class Meta:
@@ -42,14 +42,11 @@ class NavForm(forms.ModelForm):
     nav = forms.CharField(
         label="Nav",
         widget=forms.Textarea(attrs={'rows': 10, 'cols': 40}),
-        help_text='''<span>Add navigation links in
-                    <a href='https://herman.bearblog.dev/markdown-cheatsheet/#links' target='_blank'>
-                        markdown
-                    </a>
+        help_text='''<span>Añade enlaces al menú de navegación o "nav" de tu blog.
                     <br>
-                    [Home](/) [About me](/about-me/) [Blog](/blog/)
+                    [Inicio](/) [Sobre mi](/sobre-mi/) [Blog](/blog/)
                     <br>
-                    To add a page to the nav menu set the link value to the link of a published post or page</span>
+                    Los enlaces deben ser escritos en Markdown</span>
                     ''',
         required=False,
     )
@@ -61,10 +58,10 @@ class NavForm(forms.ModelForm):
 
 class StyleForm(forms.ModelForm):
     custom_styles = forms.CharField(
-        label="Edit theme CSS",
+        label="Editar tema manualmente",
         widget=forms.Textarea(),
         required=False,
-        help_text="Ensure styling caters to existing dark mode CSS."
+        help_text="Introduce reglas de CSS personalizadas."
     )
 
     class Meta:
@@ -74,28 +71,28 @@ class StyleForm(forms.ModelForm):
 
 class AdvancedSettingsForm(forms.ModelForm):
     analytics_active = forms.BooleanField(
-        label="Collect analytics",
+        label="Recolección de estadísticas",
         required=False,
-        help_text="Disable to not collect read analytics"
+        help_text="Puedes deshabilitar la recopilación de estadísticas"
     )
 
     fathom_site_id = forms.CharField(
         max_length=20,
         required=False,
-        help_text="<span>More in-depth analytics using <a href='https://usefathom.com/ref/GMAGWL' target='_blank'>Fathom</a>.</span>"
+        help_text=""
     )
 
     meta_tag = forms.CharField(
-        label="Custom meta tag",
+        label="Etiqueta de metadatos personalizada",
         required=False,
-        help_text="The structure of a meta tag is strictly &lt;meta name='' property='' content='' /&gt"
+        help_text="La estructura de esta etiqueta es estrictamente: &lt;meta name='' property='' content='' /&gt"
     )
 
     robots_txt = forms.CharField(
         widget=forms.Textarea(),
-        label="robots.txt content",
+        label="Cotenido de robots.txt",
         required=False,
-        help_text="This will be appended to the mandatory robots.txt content. View yours at example.bearblog.dev/robots.txt"
+        help_text="Directivas para robots y web crawlers. Puedes ver tu archivo actual en tu-subdominio.ichoria.cc/robots.txt"
     )
 
     def clean_meta_tag(self):
@@ -103,7 +100,7 @@ class AdvancedSettingsForm(forms.ModelForm):
         if meta_tag:
             pattern = r'<meta\s+((?!\b(?:javascript|script|url|onerror)\b)[^>])*?>'
             if not re.search(pattern, meta_tag, re.IGNORECASE):
-                raise forms.ValidationError("Invalid meta tag")
+                raise forms.ValidationError("Etiqueta de metadatos inválida")
         return meta_tag
 
     class Meta:
@@ -115,7 +112,7 @@ class AnalyticsForm(forms.ModelForm):
     fathom_site_id = forms.CharField(
         max_length=20,
         required=False,
-        help_text="8 upper-case characters"
+        help_text="Ocho letras mayúsculas"
     )
 
     class Meta:
@@ -128,7 +125,7 @@ class PostTemplateForm(forms.ModelForm):
         widget=forms.Textarea(attrs={'rows': 20, 'cols': 40, 'placeholder': "title: \nmeta_description: \n___\nHello world!"}),
         required=False,
         label='',
-        help_text="This will pre-populate on all new posts. Separate header and body content with ___ (3 underscores)."
+        help_text="Este será el contenido por defecto de los posts nuevos. Separa la cabecera del cuerpo con ___ (3 barras bajas)."
     )
 
     class Meta:

@@ -1,15 +1,14 @@
-<p style="font-weight: 400; font-size: 14px; margin-top: -16px; width: 100%; text-align: left;">
-    {{ blog.blank_useful_domain }} 
+<p style="font-weight: 400; font-size: 14px; margin-top: 4px; width: 100%; text-align: center;">
+    {{ blog.subdomain }}.ichoria.cc 
 </p>
 
 <span>
-    <a href="{% url 'dashboard' id=blog.subdomain %}">Home</a>
+    <a href="{% url 'dashboard' id=blog.subdomain %}">Inicio</a>
     {% if blog %}
     <a href="{% url 'nav' id=blog.subdomain %}">Nav</a>
     <a href="{% url 'posts_edit' id=blog.subdomain %}">Posts</a>
-    <a href="{% url 'pages_edit' id=blog.subdomain %}">Pages</a>
-    <a href="{% url 'styles' id=blog.subdomain %}">Themes</a>
-    <a href="{% url 'email_list' id=blog.subdomain %}">Emails</a>
+    <a href="{% url 'pages_edit' id=blog.subdomain %}">Páginas</a>
+    <a href="{% url 'styles' id=blog.subdomain %}">Temas</a>
     {% endif %}
     {% if not blog.user.settings.upgraded %}
     <a href="{% url 'upgrade' %}" style="color:salmon;" class="upgrade">Upgrade <span class="bear flex"></span></a>
@@ -18,18 +17,20 @@
 
 <span>
     {% if blog.analytics_active %}
-    <a href="{% url 'analytics' id=blog.subdomain %}">Analytics</a>
+    <a href="{% url 'analytics' id=blog.subdomain %}">Estadísticas</a>
     {% endif %}
-    <a href="{% url 'settings' id=blog.subdomain %}">Settings</a>
+    <a href="{% url 'settings' id=blog.subdomain %}">Ajustes</a>
     <a href="{% url 'account' %}" class="account bear"></a>
 </span>
 
 {% if not blog.reviewed and not blog.to_review and blog.posts.count > 0 %}
 <p class="notification">
     <small>
-    🐼 Your blog is currently hidden from search engines and the
-    <a href="https://bearblog.dev/discover/" target="_blank">discovery feed</a>.
-    <a href="{% url 'opt_in_review' id=blog.subdomain %}">Submit your blog for review</a>.
+    Tu blog se encuentra actualmente oculto de motores de búsqueda y la página
+    de
+    <a href="https://bearblog.dev/discover/" target="_blank">"explorar"</a>.
+    <a href="{% url 'opt_in_review' id=blog.subdomain %}">Solicita una revisión</a>
+    para cambiar esto.
     </small>
 </p>
 {% endif %}

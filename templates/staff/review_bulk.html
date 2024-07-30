@@ -38,7 +38,7 @@ body {
 <div id="blog-{{ blog.pk }}">
     <h3>{{ blog.title }}</h3>
     <h4>Dodginess score: {{ blog.dodginess_score }}</h4>
-    <a href="{{ blog.useful_domain }}" target="_blank">{{ blog.useful_domain }}</a>
+    <a href="https://{{ blog.subdomain }}.ichoria.cc" target="_blank">https://{{ blog.subdomain }}.ichoria.cc</a>
     <br>
     <a href="mailto:{{ blog.user.email }}">{{ blog.user.email }}</a>
     <p><b>

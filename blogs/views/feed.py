@@ -44,11 +44,11 @@ def feed(request):
     all_posts = all_posts
 
     fg = FeedGenerator()
-    fg.id(blog.useful_domain)
+    fg.id(f'https://{blog.subdomain}.ichoria.cc')
     fg.author({'name': blog.subdomain, 'email': 'hidden'})
     fg.title(blog.title)
     fg.subtitle(blog.meta_description or unmark(blog.content)[:157] + '...' or blog.title)
-    fg.link(href=f"{blog.useful_domain}/", rel='alternate')
+    fg.link(href=f"https://{blog.subdomain}.ichoria.cc/", rel='alternate')
     
 
     name = blog.subdomain
@@ -57,10 +57,10 @@ def feed(request):
 
     for post in all_posts:
         fe = fg.add_entry()
-        fe.id(f"{blog.useful_domain}/{post.slug}/")
+        fe.id(f"https://{blog.subdomain}.ichoria.cc/{post.slug}/")
         fe.title(post.title)
         fe.author({'name': name, 'email': 'hidden'})
-        fe.link(href=f"{blog.useful_domain}/{post.slug}/")
+        fe.link(href=f"https://{blog.subdomain}.ichoria.cc/{post.slug}/")
         if post.meta_description:
             fe.summary(post.meta_description)
         try:
@@ -82,7 +82,7 @@ def feed(request):
             rssfeed = fg.rss_str(pretty=True)
             return HttpResponse(rssfeed, content_type='application/rss+xml')
         else:
-            fg.link(href=f"{blog.useful_domain}/feed/", rel='self')
+            fg.link(href=f"https://{blog.subdomain}.ichoria.cc/feed/", rel='self')
             atomfeed = fg.atom_str(pretty=True)
             return HttpResponse(atomfeed, content_type='application/atom+xml')
     except ValueError as e:

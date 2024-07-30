@@ -12,11 +12,11 @@
 
 {% block content %}
 
-<h1>Navigation</h1>
+<h1>Navegación</h1>
 
 <form method="POST" class="post-form full-width">{% csrf_token %}
-    <button type="submit">Publish</button>
-    <button onclick="event.preventDefault();window.open('{{blog.dynamic_useful_domain}}');">View</button>
+    <button type="submit">Publicar</button>
+    <button onclick="event.preventDefault();window.open('https://{{ blog.subdomain }}.ichoria.cc');">Visualizar</button>
     {{ form.as_p }}
 </form>
 

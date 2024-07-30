@@ -132,13 +132,13 @@ def discover(request):
 def feed(request):
     fg = FeedGenerator()
     fg.id("bearblog")
-    fg.author({"name": "Bear Blog", "email": "feed@bearblog.dev"})
+    fg.author({"name": "Ichoria Blogs", "email": "admin@ichoria.org"})
 
     newest = request.GET.get("newest")
     if newest:
-        fg.title("Bear Blog Most Recent Posts")
-        fg.subtitle("Most recent posts on Bear Blog")
-        fg.link(href="https://bearblog.dev/discover/?newest=True", rel="alternate")
+        fg.title("Posts recientes")
+        fg.subtitle("Posts recientes")
+        fg.link(href="https://ichoria.cc/discover/?newest=True", rel="alternate")
         
         CACHE_KEY = 'discover_newest_feed'
         cached_queryset = cache.get(CACHE_KEY)
@@ -150,9 +150,9 @@ def feed(request):
         else:
             all_posts = cached_queryset
     else:
-        fg.title("Bear Blog Trending Posts")
-        fg.subtitle("Trending posts on Bear Blog")
-        fg.link(href="https://bearblog.dev/discover/", rel="alternate")
+        fg.title("Posts populares")
+        fg.subtitle("Posts populares")
+        fg.link(href="https://ichoria.cc/discover/", rel="alternate")
 
         CACHE_KEY = 'discover_trending_feed'
         cached_queryset = cache.get(CACHE_KEY)
@@ -166,10 +166,10 @@ def feed(request):
 
     for post in all_posts:
         fe = fg.add_entry()
-        fe.id(f"{post.blog.useful_domain}/{post.slug}/")
+        fe.id(f"https://{post.blog.subdomain}.ichoria.cc/{post.slug}/")
         fe.title(post.title)
         fe.author({"name": post.blog.subdomain, "email": "hidden"})
-        fe.link(href=f"{post.blog.useful_domain}/{post.slug}/")
+        fe.link(href=f"https://{post.blog.subdomain}.ichoria.cc/{post.slug}/")
         fe.content(clean_text(mistune.html(post.content.replace("{{ email-signup }}", ''))), type="html")
         fe.published(post.published_date)
         fe.updated(post.published_date)

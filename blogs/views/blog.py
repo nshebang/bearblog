@@ -13,6 +13,7 @@ from blogs.tasks import daily_task
 from blogs.views.analytics import render_analytics
 
 import tldextract
+import re
 
 
 def resolve_address(request):
@@ -22,11 +23,22 @@ def resolve_address(request):
         http_host = request.META.get('HTTP_X_FORWARDED_HOST', 'bear-blog.herokuapp.com')
 
     sites = Site.objects.all()
+    valid_domains = [
+        '127.0.0.1:8000',
+        '127.0.0.1:8001',
+        'localhost:8000',
+        'localhost:8001',
+        'ichoria.cc',
+        'https://ichoria.cc'
+    ]
 
-    if any(http_host == site.domain for site in sites):
+    subdomain_pattern = r'^(?!www\.)((?!www\.)(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})(?::\d{1,5})?$'
+    regex = re.compile(subdomain_pattern)
+
+    if any(http_host == site for site in valid_domains):
         # Homepage
         return None
-    elif any(site.domain in http_host for site in sites):
+    elif regex.match(http_host):
         # Subdomained blog
         return get_object_or_404(Blog, subdomain__iexact=tldextract.extract(http_host).subdomain, user__is_active=True)
     else:
@@ -76,7 +88,7 @@ def home(request):
         {
             'blog': blog,
             'posts': get_posts(all_posts),
-            'root': blog.useful_domain,
+            'root': f'https://{blog.subdomain}.ichoria.cc',
             'meta_description': meta_description
         })
 
@@ -103,7 +115,7 @@ def posts(request):
         {
             'blog': blog,
             'posts': blog_posts,
-            'root': blog.useful_domain,
+            'root': f'https://{blog.subdomain}.ichoria.cc',
             'meta_description':  meta_description,
             'query': tag
         }
@@ -138,7 +150,7 @@ def post(request, slug):
     hash_id = salt_and_hash(request, 'year')
     upvoted = post.upvote_set.filter(hash_id=hash_id).exists()
 
-    root = blog.useful_domain
+    root = f'https://{blog.subdomain}.ichoria.cc'
     meta_description = post.meta_description or unmark(post.content)[:157] + '...'
     full_path = f'{root}/{post.slug}/'
     canonical_url = full_path
@@ -155,7 +167,7 @@ def post(request, slug):
             'blog': blog,
             'content': post.content,
             'post': post,
-            'root': blog.useful_domain,
+            'root': f'https:{blog.subdomain}.ichoria.cc',
             'full_path': full_path,
             'canonical_url': canonical_url,
             'meta_description': meta_description,

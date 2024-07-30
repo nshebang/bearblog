@@ -43,9 +43,9 @@
 {% block content %}
 
 {% if query %}
-<h3 style="margin-bottom:0">Filtering for "{{ query }}"</h3>
+<h3 style="margin-bottom:0">Filtrando por "{{ query }}"</h3>
 <small>
-<a href="/blog/">Remove filter</a>
+<a href="/blog/">Quitar filtro</a>
 </small>
 {% endif %}
 
@@ -69,7 +69,4 @@
 {{ blog.footer_directive | markdown:blog | safe }}
 </span>
 {% endif %}
-<span>
-    Powered by <a href="https://bearblog.dev">Bear ʕ•ᴥ•ʔ</a>
-</span>
 {% endblock %}

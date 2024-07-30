@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Email list | Bear Blog{% endblock %}
+{% block title %}Listas de suscripción@Ichoria★Blogs{% endblock %}
 
 {% block custom_styles %}
     {% include 'styles/blog/default.css' %}
@@ -11,7 +11,10 @@
 {% block nav %}{% include '../snippets/dashboard_nav.html' %}{% endblock %}
 
 {% block content %}
-<h1>Email list</h1>
+<h1>Listas de suscripción</h1>
+
+<p>Esta característica no está implementada.</p>
+{% comment %}
 <p>
     <small>
         <b>Bear does not send emails to subscribers. This is an email subscriber list.</b>
@@ -36,4 +39,5 @@
 {% empty %}No emails yet{% endfor %}{% endif %}</textarea>
     <small>One email address per line</small>
 </form>
+{% endcomment %}
 {% endblock %}

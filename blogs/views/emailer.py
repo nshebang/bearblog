@@ -69,7 +69,7 @@ def subscribe(request):
         'subscribe.html',
         {
             'blog': blog,
-            'root': blog.useful_domain,
+            'root': f'https://{blog.subdomain}.ichoria.cc',
         }
     )
 
@@ -89,9 +89,9 @@ def email_subscribe(request):
             subscriber_dupe = Subscriber.objects.filter(blog=blog, email_address=email).count()
             if subscriber_dupe < 1:
                 validate_subscriber_email(email, blog)
-                return HttpResponse("You've been subscribed! ＼ʕ •ᴥ•ʔ／")
+                return HttpResponse("¡Te suscribiste! ＼ʕ •ᴥ•ʔ／")
             else:
-                return HttpResponse("You are already subscribed.")
+                return HttpResponse("Ya te suscribiste anteriormente.")
 
     return HttpResponse("Something went wrong.")
 
@@ -108,38 +108,36 @@ def confirm_subscription(request):
 
         return HttpResponse(f'''
             <p style='text-align: center; padding-top: 10%'>
-                Your subscription to
-                <a href="{blog.useful_domain}">{blog.title}</a>
-                has been confirmed. ＼ʕ •ᴥ•ʔ／
+                Tu suscripción a
+                <a href="https://{blog.subdomain}.ichoria.cc">{blog.title}</a>.
+                se confirmó.
             </p>
             ''')
 
-    return HttpResponse("Something went wrong. Try subscribing again. ʕノ•ᴥ•ʔノ ︵ ┻━┻")
+    return HttpResponse("Error: intenta suscribirte de nuevo")
 
 
 def validate_subscriber_email(email, blog):
     token = hashlib.md5(f'{email} {blog.subdomain} {timezone.now().strftime("%B %Y")}'.encode()).hexdigest()
-    confirmation_link = f'{blog.useful_domain}/confirm-subscription/?token={token}&email={email}'
+    confirmation_link = f'https://{blog.subdomain}.ichoria.cc/confirm-subscription/?token={token}&email={email}'
 
     html_message = f'''
-        You've decided to subscribe to {blog.title} ({blog.useful_domain}). That's awesome!
+        Te suscribiste a {blog.title} (https://{blog.subdomain}.ichoria.cc).
         <br>
         <br>
-        Follow this <a href="{confirmation_link}">link</a> to confirm your subscription.
+        Entra a <a href="{confirmation_link}">este link</a> para confirmarlo.
         <br>
         <br>
-        Powered by <a href="https://bearblog.dev">Bear ʕ•ᴥ•ʔ</a>
+        <a href="https://ichoria.cc">Ichoria Blogs</a>
     '''
     text_message = f'''
-        You've decided to subscribe to {blog.title} ({blog.useful_domain}). That's awesome!
+        Te suscribiste a {blog.title} (https://{blog.subdomain}.ichoria.cc). 
 
-        Follow this link to confirm your subscription: {confirmation_link}
-
-        Powered by Bear ʕ•ᴥ•ʔ
+        Entra a {confirmation_link} para confirmarlo.
     '''
     send_async_mail(
-        f'Confirm your subscription to {blog.title}',
+        f'Confirma tu suscripción a {blog.title}',
         html_message,
-        'Bear ʕ•ᴥ•ʔ <no_reply@bearblog.dev>',
+        'Ichoria Blogs',
         [email],
     )

@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}Create your blog{% endblock %}
+{% block title %}Crea tu blog{% endblock %}
 
 {% block seo %}<meta name="robots" content="noindex, nofollow">{% endblock %}
 
 {% block content %}
-<h1>Create your blog</h1>
+<h1>Crea tu blog</h1>
 
 {% if error_messages %}
 <p style="color:lightsalmon">
@@ -21,7 +21,7 @@
         type="text"
         required
         name="title"
-        placeholder="A title for your blog..."
+        placeholder="Título de tu blog"
         value="{{ title }}"
     >
     <p style="display: flex;align-items:end">
@@ -32,19 +32,19 @@
             autocorrect="off"
             spellcheck="false"
             name="subdomain"
-            placeholder="Preferred subdomain..."
+            placeholder="Subdominio preferido"
             value="{{ subdomain }}"
             style="max-width:200px; margin-right: 10px;"
         >
-        <span class="helptext">.bearblog.dev</span>
+        <span class="helptext">.ichoria.cc</span>
     </p>
 
     <p>
-        <textarea name="content" required placeholder="Some homepage text...">{{ content }}</textarea>
-        <span class="helptext">Don't worry, you can change all this later</span>
+        <textarea name="content" required placeholder="Describe brevemente tu blog a tus lectores...">{{ content }}</textarea>
+        <span class="helptext">Puedes cambiar todo esto después</span>
     </p>
     
-    <button type="submit">Create &raquo;</button>
+    <button type="submit">Crear blog &raquo;</button>
 </form>
 
 <script>

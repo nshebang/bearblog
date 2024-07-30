@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load humanize %}
 
-{% block title %}Analytics | Bear Blog{% endblock %}
+{% block title %}Estadísticas@Ichoria★Blogs{% endblock %}
 
 {% block custom_styles %}
     {% include 'styles/blog/default.css' %}
@@ -18,22 +18,22 @@
 {% endblock %}
 
 {% block content %}
-<h1>Analytics{% if public %} for {{ blog.title }}{% endif %}</h1>
+<h1>Estadísticas{% if public %} de {{ blog.title }}{% endif %}</h1>
 <p>
-    <b>Reading now:</b> {{ on_site|intcomma }}
+    <b>Leyendo ahora:</b> {{ on_site|intcomma }}
     
 </p>
 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
     <small>
-        Displaying the past {{ days_filter }} days
+      Mostrando los últimos {{ days_filter }} días
     </small>
     <span>
-        <button onclick="window.location = '?days=7{% if post_filter %}&post={{post_filter}}{% endif %}{% if referrer_filter %}&referrer={{referrer_filter}}{% endif %}'">Last week</button>
-        <button onclick="window.location = '?days=30{% if post_filter %}&post={{post_filter}}{% endif %}{% if referrer_filter %}&referrer={{referrer_filter}}{% endif %}'">Last month</button>
-        <button onclick="window.location = '?days=90{% if post_filter %}&post={{post_filter}}{% endif %}{% if referrer_filter %}&referrer={{referrer_filter}}{% endif %}'">Last 3 months</button>
-        <button onclick="window.location = '?days=180{% if post_filter %}&post={{post_filter}}{% endif %}{% if referrer_filter %}&referrer={{referrer_filter}}{% endif %}'">Last 6 months</button>
-        <button onclick="window.location = '?days=365{% if post_filter %}&post={{post_filter}}{% endif %}{% if referrer_filter %}&referrer={{referrer_filter}}{% endif %}'">Last year</button>
-        <button onclick="window.location = '?days=99999{% if post_filter %}&post={{post_filter}}{% endif %}{% if referrer_filter %}&referrer={{referrer_filter}}{% endif %}'">All time</button>
+        <button onclick="window.location = '?days=7{% if post_filter %}&post={{post_filter}}{% endif %}{% if referrer_filter %}&referrer={{referrer_filter}}{% endif %}'">Última semana</button>
+        <button onclick="window.location = '?days=30{% if post_filter %}&post={{post_filter}}{% endif %}{% if referrer_filter %}&referrer={{referrer_filter}}{% endif %}'">Último mes</button>
+        <button onclick="window.location = '?days=90{% if post_filter %}&post={{post_filter}}{% endif %}{% if referrer_filter %}&referrer={{referrer_filter}}{% endif %}'">Últimos 3 meses</button>
+        <button onclick="window.location = '?days=180{% if post_filter %}&post={{post_filter}}{% endif %}{% if referrer_filter %}&referrer={{referrer_filter}}{% endif %}'">Últimos 6 meses</button>
+        <button onclick="window.location = '?days=365{% if post_filter %}&post={{post_filter}}{% endif %}{% if referrer_filter %}&referrer={{referrer_filter}}{% endif %}'">Último año</button>
+        <button onclick="window.location = '?days=99999{% if post_filter %}&post={{post_filter}}{% endif %}{% if referrer_filter %}&referrer={{referrer_filter}}{% endif %}'">Desde el inicio</button>
     </span>
 </div>
 <embed type="image/svg+xml" src= {{ chart|safe }} />
@@ -43,28 +43,28 @@
 </span>
 
 <p>
-    <b>Unique reads:</b> {{ unique_reads|intcomma }}
+    <b>Lecturas únicas:</b> {{ unique_reads|intcomma }}
     <br>
-    <b>Unique visitors:</b> ~{{ unique_visitors|intcomma }}
+    <b>Visitantes únicos:</b> ~{{ unique_visitors|intcomma }}
     <br>
-    <b>RSS subscribers:</b> ~{{ rss_subscriber_count|intcomma }}
+    <b>Suscriptores del feed RSS:</b> ~{{ rss_subscriber_count|intcomma }}
 </p>
 
 <p>
 {% if post_filter %}
     <small>Post: <b>{{ posts.first.title }}</b></small>
-    <a href="?days={{days_filter}}{% if referrer_filter %}&referrer={{referrer_filter}}{% endif %}"><button>Remove filter</button></a>
+    <a href="?days={{days_filter}}{% if referrer_filter %}&referrer={{referrer_filter}}{% endif %}"><button>Quitar filtro</button></a>
     <br>
 {% endif %}
 {% if referrer_filter %}
     <small>Referrer: <b>{{ referrer_filter }}</b></small>
-    <a href="?days={{days_filter}}{% if post_filter %}&post={{post_filter}}{% endif %}"><button>Remove filter</button></a>
+    <a href="?days={{days_filter}}{% if post_filter %}&post={{post_filter}}{% endif %}"><button>Quitar filtro</button></a>
 {% endif %}
 </p>
 
 <div style="display:flex;flex-flow:row wrap;justify-content:space-between; font-size: 12px;">
     <div style="width: 340px">
-        <h3>Pages</h3>
+        <h3>Páginas</h3>
         <ul style="padding: 0;max-height: 300px;overflow-y: auto;">
             {% for post in posts %}
             <li style="display:flex;justify-content:space-between;padding:5px 0;">
@@ -77,7 +77,7 @@
                     {{post.title}}
                     {% endif %}
                     <small>(▵{{ post.upvotes }})</small>
-                    <a href="{{ blog.dynamic_useful_domain }}/{{ post.slug }}" target="_blank">↪</a>
+                    <a href="https://{{ blog.subdomain }}.ichoria.cc/{{ post.slug }}" target="_blank">↪</a>
                 </span>
                 <span>{{post.hit_count|intcomma}}</span>
             </li>
@@ -102,7 +102,7 @@
 
 <div style="padding-top:20px;display:flex; flex-flow: row wrap;justify-content:space-between; font-size: 12px;">
     <div style="width:220px">
-        <h3>Devices</h3>
+        <h3>Dispositivos</h3>
         <ul style="padding: 0;max-height: 300px;overflow-y: auto">
             {% for device in devices %}
             <li style="display:flex;justify-content:space-between;padding:5px 0;">
@@ -113,7 +113,7 @@
         </ul>
     </div>
     <div style="width:220px">
-        <h3>Browsers</h3>
+        <h3>Navegadores</h3>
         <ul style="padding: 0;max-height: 300px;overflow-y: auto">
             {% for browser in browsers %}
             <li style="display:flex;justify-content:space-between;padding:5px 0;">
@@ -124,7 +124,7 @@
         </ul>
     </div>
     <div style="width:220px">
-        <h3>Countries</h3>
+        <h3>Países</h3>
         <ul style="padding: 0;max-height: 300px;overflow-y: auto">
             {% for country in countries %}
             <li style="display:flex;justify-content:space-between;padding:5px 0;">
@@ -139,32 +139,20 @@
 <hr>
 <small>
     <details>
-        <summary>Analytics settings</summary>
+        <summary>Ajustes de estadísticas</summary>
     
         <p>
             {% if blog.public_analytics %}
-            Public analytics available at 
-            <a href="{{blog.dynamic_useful_domain}}/public-analytics/" target="_blank">{{ blog.useful_domain }}/public-analytics/</a>
+            Estadísticas públicas disponibles en 
+            <a href="https://{{blog.subdomain}}.ichoria.cc/public-analytics/" target="_blank">https://{{ blog.subdomain }}.ichoria.cc/public-analytics/</a>
             <br>
-            <button onclick="window.location = '?share=private'">Make analytics private</button>
+            <button onclick="window.location = '?share=private'">Hacer estadísticas privadas</button>
             {% else %}
-            <button onclick="window.location = '?share=public'">Make analytics public</button>
+            <button onclick="window.location = '?share=public'">Hacer estadísticas públicas</button>
             {% endif %}
-            <button onclick="window.open('?export=True')">Export all</button>
+            <button onclick="window.open('?export=True')">Exportar reporte de estadísticas</button>
         </p>
         <hr>
-        <p>
-            <b>Need more in-depth analytics with minute-by-minute logs, time-on-site, and granular referrers?</b>
-            <br>
-            <a href='https://usefathom.com/ref/GMAGWL' target='_blank'>Fathom</a> is a great, privacy respecting analytics tool.
-            <br>
-            Sign up with the above link to get $10 off.
-            <form method="POST" class="post-form">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="save btn btn-default">Save</button>
-            </form>    
-        </p>
     </details>
 </small>
 {% endif %}
@@ -173,7 +161,6 @@
 
 {% block footer %}
 {% if public %}
-Powered by <a href="https://bearblog.dev">Bear ʕ•ᴥ•ʔ</a>
 {% else %}
 {% include 'snippets/dashboard_footer.html' %}
 {% endif %}

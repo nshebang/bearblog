@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Styling | Bear Blog {% endblock %}
+{% block title %}Estilos y temas@Ichoria★Blogs{% endblock %}
 
 {% block custom_styles %}
     {% include 'styles/blog/default.css' %}
@@ -11,7 +11,7 @@
 {% block nav %}{% include '../snippets/dashboard_nav.html' %}{% endblock %}
 
 {% block content %}
-<h1>Themes</h1>
+<h1>Temas</h1>
 <div style="width: 100%;text-align:right;">→</div>
 <div
   style="display: grid;grid-template-columns: 150px 150px 150px 150px 150px 150px 150px;grid-gap: 27px;overflow-x: scroll;padding-bottom: 20px;"
@@ -23,8 +23,8 @@
     <b style="color: #444">{{ style.title }}</b>
     <br>
     <span>
-      <button onclick="preview('{{ style.identifier }}')">Preview</button>
-      <button onclick="setStyle('{{ style.identifier }}')">Apply theme</button> 
+      <button onclick="preview('{{ style.identifier }}')">Vista previa</button>
+      <button onclick="setStyle('{{ style.identifier }}')">Aplicar este tema</button> 
     </span>
   </div>
   {% endfor %}
@@ -34,9 +34,9 @@
 <form method="POST" class="post-form full-width">
   <p class="sticky-controls">
     <span>
-      <button type="submit" class="save btn btn-default">Publish</button>
-      <button onclick="event.preventDefault();window.open('{{ blog.dynamic_useful_domain }}');">
-        View
+      <button type="submit" class="save btn btn-default">Publicar</button>
+      <button onclick="event.preventDefault();window.open('https://{{ blog.subdomain }}.ichoria.cc');">
+        Visualizar
       </button>
     </span>
   </p>
@@ -70,7 +70,7 @@
 	})
 
   const setStyle = name => {
-    if (confirm("This will overwrite your current styles, are you sure?")) {
+    if (confirm("Esto va a sobreescribir el estilo actual ¿proceder?")) {
       window.location = '?style=' + name
     }
   }

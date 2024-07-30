@@ -57,7 +57,7 @@
 {% if blog.analytics_active and not preview %}
 <style>
     body:hover {
-        border-image: url("/hit/{{ post.uid }}/{% if blog.blank_useful_domain not in request.META.HTTP_REFERER %}?ref={{ request.META.HTTP_REFERER }}{% endif %}");
+        border-image: url("/hit/{{ post.uid }}/{% if blog.subdomain not in request.META.HTTP_REFERER %}?ref={{ request.META.HTTP_REFERER }}{% endif %}");
         border-width: 0;
     }
 </style>
@@ -130,7 +130,4 @@
 {{ blog.footer_directive | markdown:post | safe }}
 </span>
 {% endif %}
-<span>
-    Powered by <a href="https://bearblog.dev">Bear ʕ•ᴥ•ʔ</a>
-</span>
 {% endblock %}

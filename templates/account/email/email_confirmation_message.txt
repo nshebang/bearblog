@@ -1,5 +1,3 @@
-Click the link below to activate your new blog.
+Da clic en el siguiente enlace para verificar tu cuenta:
 
 {{ activate_url }}
-
-Keep the tiny internet awesome! \ʕ•ᴥ•ʔ/

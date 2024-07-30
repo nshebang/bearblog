@@ -220,9 +220,9 @@ def approve(request, pk):
     
     if message:
         send_async_mail(
-            "I've just reviewed your blog",
+            "Blog revisado",
             message,
-            'Herman Martinus <herman@bearblog.dev>',
+            'Administración de Ichoria Blogs <admin@ichoria.org>',
             [blog.user.email]
         )
     return HttpResponse("Approved")

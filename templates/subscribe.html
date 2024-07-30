@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load custom_tags %}
 
-{% block page_type %}subscribe{% endblock %}
+{% block page_type %}Suscribirse{% endblock %}
 
 {% block favicon %}
 {% if blog.favicon %}
@@ -9,7 +9,7 @@
 {% endif %}
 {% endblock %}
 
-{% block title %}Subscribe | {{ blog.title }}{% endblock %}
+{% block title %}Suscribirse a {{ blog.title }}{% endblock %}
 
 {% block canonical %}<link rel="canonical" href="{{ root }}/blog/">{% endblock %}
 
@@ -26,7 +26,7 @@
 {% block content %}
 {% if blog.user.settings.upgraded and not subscribe_message %}
 <p>
-    <b>Subscribe to this blog</b>
+    <b>Suscríbete a este blog</b>
 </p>
 {% include './snippets/email_subscribe_form.html' %}
 {% endif %}
@@ -42,7 +42,4 @@
 {{ blog.footer_directive | markdown:blog | safe }}
 </span>
 {% endif %}
-<span>
-    Powered by <a href="https://bearblog.dev">Bear ʕ•ᴥ•ʔ</a>
-</span>
 {% endblock %}

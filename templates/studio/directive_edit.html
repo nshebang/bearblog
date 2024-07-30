@@ -2,7 +2,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Directives | Bear Blog
+Directivas@Ichoria★Blogs
 {% endblock %}
 
 {% block custom_styles %}
@@ -13,19 +13,19 @@ Directives | Bear Blog
 
 {% block content %}
 <main>
-    <h1>Directives</h1>
+    <h1>Directivas</h1>
     <p class="helptext">
-        Extend your Bear blog by adding custom code to the &lt;head&gt; and &lt;footer&gt; tags.
+      Extiende la cabecera y pie de página de tu blog, es decir las etiquetas &lt;head&gt; y &lt;footer&gt;.
     </p>
     <form method="POST" class="post-form full-width">
         {% csrf_token %}
         <p style="line-height: 0">
-            <button onclick="event.preventDefault(); window.location = '/{{ blog.subdomain}}/dashboard/settings/'">&#8592; Back</button>
-            <button type="submit">Save</button>
-            <button onclick="event.preventDefault(); window.open('{{ blog.dynamic_useful_domain }}');">View</button>
+            <button onclick="event.preventDefault(); window.location = '/{{ blog.subdomain }}/dashboard/settings/'">&#8592; Volver</button>
+            <button type="submit">Guardar cambios</button>
+            <button onclick="event.preventDefault(); window.open('https://{{ blog.subdomain }}.ichoria.cc');">Visualizar</button>
         </p>
         <p>
-            <label>Head directive:</label>
+            <label>Directivas de cabecera:</label>
             <br>
             <textarea name="header" style="height: 150px;">{{ blog.header_directive }}</textarea>
             <p style="color:lightsalmon;font-size:small;display:none;" class="domain-error">
@@ -33,10 +33,10 @@ Directives | Bear Blog
             </p>
         </p>
         <p>
-            <label>Footer directive:</label>
+            <label>Directivas de pie de página:</label>
             <br>
             <textarea name="footer" style="height: 150px;">{{ blog.footer_directive }}</textarea>
-            <span class="helptext">Markdown/HTML</span>
+            <span class="helptext">Usa Markdown o HTML</span>
         </p>
     </form>
 </main>

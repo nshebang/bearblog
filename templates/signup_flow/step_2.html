@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}One last thing{% endblock %}
+{% block title %}Un paso más{% endblock %}
 
 {% block seo %}<meta name="robots" content="noindex, nofollow">{% endblock %}
 
 {% block content %}
 
-<button onclick="history.back()">Back</button>
+<button onclick="history.back()">Volver</button>
 
 {% if error_messages %}
 <p style="color:lightsalmon">
@@ -19,13 +19,13 @@
 <form method="POST" class="full-width">
     {% csrf_token %}
     <p>
-        To ensure you keep control <b>{{ subdomain }}.bearblog.dev</b>
+      Solo hace falta crear tu cuenta para <b>{{ subdomain }}.ichoria.cc</b>
     </p>
     <p style="display: flex; gap: 20px;">
         <input
             type="email"
             required name="email"
-            placeholder="Email address..."
+            placeholder="Correo electrónico"
             autocomplete="off"
             autocorrect="off"
             spellcheck="false"
@@ -35,7 +35,7 @@
             type="password"
             required
             name="password"
-            placeholder="Password..."
+            placeholder="Contraseña"
             autocomplete="off"
             autocorrect="off"
             spellcheck="false"
@@ -50,11 +50,14 @@
     <textarea hidden name="content">{{ content }}</textarea>
 
     <small><input type="checkbox" required>
-        I agree to the <a target="_blank" href="https://docs.bearblog.dev/terms-of-service">terms of service</a>.
+      Leí y acepto los
+      <a target="_blank" href="https://ichoria.org/tos-blogs.txt">términos de servicio</a>
+      y la
+      <a target="_blank" href="https://ichoria.org/privacidad.txt">política de privacidad</a>.
     </small>
     <br>
     
-    <button type="submit">Create &raquo;</button>
+    <button type="submit">Crear cuenta &raquo;</button>
 </form>
 
 <script>

@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('content', models.TextField(blank=True, default='Hello World!')),
                 ('meta_description', models.CharField(blank=True, max_length=200)),
                 ('meta_image', models.CharField(blank=True, max_length=200)),
-                ('lang', models.CharField(blank=True, default='en', max_length=10)),
+                ('lang', models.CharField(blank=True, default='es', max_length=10)),
                 ('meta_tag', models.CharField(blank=True, max_length=500)),
                 ('blog_path', models.CharField(default='blog', max_length=200)),
                 ('header_directive', models.TextField(blank=True)),

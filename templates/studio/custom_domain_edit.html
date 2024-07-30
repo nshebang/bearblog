@@ -2,7 +2,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Custom domain | Bear Blog
+Dominio personalizado@Ichoria★Blogs
 {% endblock %}
 
 {% block custom_styles %}
@@ -13,14 +13,16 @@ Custom domain | Bear Blog
 
 {% block content %}
 <main>
-    <h1>Custom domain</h1>
-    
+    <h1>Dominio personalizado</h1>
+   
+    <p>No implementado aún.</p>
+{% comment %}
     <form method="POST" class="post-form full-width">
         {% csrf_token %}
         <p style="line-height: 0">
-            <button onclick="event.preventDefault(); window.location = '/{{ blog.subdomain}}/dashboard/settings/'">&#8592; Back</button>
+            <button onclick="event.preventDefault(); window.location = '/{{ blog.subdomain}}/dashboard/settings/'">&#8592; Volver</button>
             <button type="submit">Save</button>
-            <button onclick="event.preventDefault(); window.open('{{ blog.dynamic_useful_domain }}');">View</button>
+            <button onclick="event.preventDefault(); window.open('https://{{ blog.subdomain }}.ichoria.cc');">Visualizar</button>
         </p>
 
         {% if error_messages %}
@@ -32,80 +34,57 @@ Custom domain | Bear Blog
         {% endif %}
         
         <p>
-            <label>Domain:</label>
+            <label>Dominio</label>
             <br>
             <input type="text" name="custom-domain" value="{{ blog.domain }}" autocorrect="off" autocomplete="off" spellcheck="off">
             <p class="helptext">
-                example.com or blog.example.com
+              ejemplo.tld o blog.ejemplo.tld
             </p>
         </p>
     </form>
 
     <p>
         
-        <p>Once you have a domain registered with a <a href="https://porkbun.com" target="_blank">domain registrar</a>, add the following DNS records:</p>
+    <p>Una vez hayas registrado un dominio, añade las siguientes entradas o <em>records</em>:</p>
         <table>
             <tr>
-                <th>Type</th>
-                <th>Name</th>
-                <th>Content</th>
+                <th>Tipo</th>
+                <th>Nombre</th>
+                <th>Contenido</th>
                 <th>TTL</th>
             </tr>
             <tr>
                 <td>CNAME</td>
                 <td><small>@</small></td>
-                <td><small>domain-proxy.bearblog.dev</small></td>
+                <td><small>domain-proxy.ichoria.cc</small></td>
                 <td>3600</td>
             </tr>
             <tr>
                 <td>CNAME</td>
                 <td><small>www</small></td>
-                <td><small>domain-proxy.bearblog.dev</small></td>
+                <td><small>domain-proxy.ichoria.cc</small></td>
                 <td>3600</td>
             </tr>
         </table>
 
-        <details>
-            <summary><small>CNAME records aren't available at my registrar</small></summary>
-
-            <table>
-                <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Content</th>
-                    <th>TTL</th>
-                </tr>
-                <tr>
-                    <td>A</td>
-                    <td><small>@</small></td>
-                    <td><small>159.223.204.176</small></td>
-                    <td>3600</td>
-                </tr>
-                <tr>
-                    <td>A</td>
-                    <td><small>www</small></td>
-                    <td><small>159.223.204.176</small></td>
-                    <td>3600</td>
-                </tr>
-            </table>
-        </details>
-
-        <p>If you'd like your blog at a subdomain (eg: blog.example.com) set a single record with your subdomain (eg: blog) as the Name/Host.</p>
+        <p>Si estás usando un subdominio, configura blog.ejemplo.tld en lugar de solo ejemplo.tld.</p>
 
         <p>
             <small>
-                <b>If you're using Cloudflare set SSL/TLS Mode to Full (Strict), or turn off the proxy (the little orange cloud).</b>
+                <b>Si estás usando Cloudflare, configura el modo SSL/TLS a "Full (Strict)".</b>
                 <br>
-                <b>It may take up to 20 minutes for the DNS records to propagate.</b>
+                <b>Los cambios al DNS pueden tardar de unos minutos a varias horas en propagarse.</b>
                 <br>
-                You can check whether your DNS records have propagated with
-                <a href="https://dnschecker.org/#CNAME/{{ blog.domain }}" target="_blank">DNS Checker</a>.
+                Puedes usar el
+                <a href="https://dnschecker.org/#CNAME/{{ blog.domain }}" target="_blank">DNS Checker</a>
+                para revisar los <em>records</em> de tu dominio.
                 <br>
                 <br>
-                <a href="https://docs.bearblog.dev/custom-domains/" target="_blank">Having issues?</a>
+                <a href="https://docs.bearblog.dev/custom-domains/" target="_blank">Documentación (en inglés)</a>
             </small>
         </p>
     </p>
+{% endcomment %}
 </main>
 
 {% endblock %}

@@ -3,12 +3,12 @@ import requests
 import traceback
 import sys
 from django.conf import settings
+from django.shortcuts import redirect
 from datetime import datetime
 
 
 def logger_test(request):
-    x = 100/0
-
+    pass 
 
 class SlackExceptionHandler(logging.Handler):
     def emit(self, record):

@@ -17,7 +17,7 @@ import hashlib
 
 class UserSettings(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='settings', blank=True)
-    upgraded = models.BooleanField(default=False)
+    upgraded = models.BooleanField(default=True)
     upgraded_date = models.DateTimeField(blank=True, null=True)
     order_id = models.CharField(max_length=100, blank=True, null=True)
 
@@ -49,7 +49,7 @@ class Blog(models.Model):
     content = models.TextField(default="Hello World!", blank=True)
     meta_description = models.CharField(max_length=200, blank=True)
     meta_image = models.CharField(max_length=200, blank=True)
-    lang = models.CharField(max_length=10, default='en', blank=True)
+    lang = models.CharField(max_length=10, default='es', blank=True)
     meta_tag = models.CharField(max_length=500, blank=True)
     blog_path = models.CharField(max_length=200, default="blog")
     header_directive = models.TextField(blank=True)
@@ -68,7 +68,7 @@ class Blog(models.Model):
         default=False,
         choices=((True, 'Overwrite default styles'), (False, 'Extend default styles')),
         verbose_name='')
-    favicon = models.CharField(max_length=100, default="🐼", blank=True)
+    favicon = models.CharField(max_length=100, default="⭐", blank=True)
 
     date_format = models.CharField(max_length=32, blank=True)
 

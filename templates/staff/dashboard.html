@@ -77,7 +77,7 @@ Staff Dashboard  ʕง•ᴥ•ʔง
     <ul>
         {% for blog in empty_blogs %}
         <li>
-            <b>{{ blog.title }} </b><a href="{{ blog.useful_domain }}" target="_blank">{{ blog.useful_domain }}</a>
+            <b>{{ blog.title }} </b><a href="https://{{ blog.subdomain }}.ichoria.cc" target="_blank">https://{{ blog.subdomain }}.ichoria.cc</a>
             <br>
             <small>Created date: {{ blog.created_date }}</small>
             <br>

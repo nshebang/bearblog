@@ -5,8 +5,11 @@ from django.utils.text import slugify
 from django.contrib.auth import get_user_model, login
 
 from blogs.models import Blog
+from blogs.helpers import is_protected
 
-from akismet import Akismet
+import pydnsbl
+from pydnsbl.providers import Provider
+
 import random
 import os
 
@@ -18,6 +21,12 @@ def signup(request):
     email = request.POST.get('email', '')
     password = request.POST.get('password', '')
 
+    ip = request.META.get('HTTP_X_FORWARDED_FOR')
+    if ip:
+        ip = ip.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+
     error_messages = []
 
     if request.user.is_authenticated:
@@ -25,23 +34,23 @@ def signup(request):
 
     # Check password valid
     if password and len(password) < 6:
-        error_messages.append('Password is too short')
+        error_messages.append('La contraseña es muy corta')
         password = ''
 
     # Check subdomain unique
-    if subdomain and Blog.objects.filter(subdomain=subdomain).count():
-        error_messages.append('This subdomain has already been taken')
+    if subdomain and (Blog.objects.filter(subdomain=subdomain).count() or is_protected(subdomain)):
+        error_messages.append('Este subdominio ya fue reclamado')
         subdomain = ''
 
     # Check email unique and valid
     if email and Blog.objects.filter(user__email__iexact=email).count():
-        error_messages.append('An account with this email address already exists.')
+        error_messages.append('Ese correo electrónico ya está registrado')
         email = ''
 
     # If all fields are present do spam check and create account
     if title and subdomain and content and email and password:
         # Simple honeypot pre-db check
-        if honeypot_check(request) or spam_check(title, content, email, request.META['REMOTE_ADDR'], request.META['HTTP_USER_AGENT']):
+        if honeypot_check(request) or spam_check(title, content, email, ip, request.META['HTTP_USER_AGENT']):
             error_messages.append(random_error_message())
             return render(request, 'signup_flow/step_1.html', {
                 'error_messages': error_messages,
@@ -50,7 +59,7 @@ def signup(request):
         User = get_user_model()
         user = User.objects.filter(email=email).first()
         if user:
-            error_messages.append('An account with this email address already exists.')
+            error_messages.append('Ese correo electrónico ya está registrado')
         else:
             try:
                 user = User.objects.create_user(username=email, email=email, password=password)
@@ -65,7 +74,7 @@ def signup(request):
 
                 return redirect('dashboard', id=blog.subdomain)
             except IntegrityError:
-                error_messages.append('An account with this email address already exists.')
+                error_messages.append('Ese correo electrónico ya está registrado')
                 
 
             
@@ -107,30 +116,12 @@ def honeypot_check(request):
 
 
 def spam_check(title, content, email, user_ip, user_agent):
-    akismet_api = Akismet(os.getenv('AKISMET_KEY'), 'https://bearblog.dev')
-
-    is_spam = akismet_api.check(
-        user_ip=user_ip,
-        user_agent=user_agent,
-        comment_author=title,
-        comment_author_email=email,
-        comment_content=content,
-        comment_type='signup',
-    )
-
-    if is_spam > 0:
-        return True
-    return False
+    print(f'Spamcheck: {user_ip}')
+    checker = pydnsbl.DNSBLIpChecker(providers=[ Provider('all.s5h.net') ])
+    result = checker.check(user_ip)
+    return result.blacklisted
 
 
 def random_error_message():
-    errors = [
-        'Whoops. Looks like our servers are bearly functioning. Try again later.',
-        'Ensure content contains necessary parameters.',
-        'Something went wrong. Please try restarting your computer.',
-        'Your password needs a special character, a number, and a capital letter.',
-        'Ensure content is the correct length.',
-        'Bear with us as we fix our software.'
-    ]
+    return 'BOTFAGS NOT ALLOWED'
 
-    return random.choice(errors)

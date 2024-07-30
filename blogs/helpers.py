@@ -81,10 +81,10 @@ def is_protected(subdomain):
         'auth',
         'status',
         'assets',
-        'bearblog.dev',
-        '*.bearblog.dev',
-        'router.bearblog.dev',
-        'www.bearblog.dev',
+        'ichoria.cc',
+        '*.ichoria.cc',
+        'router.ichoria.cc',
+        'www.ichoria.cc',
         '_dmarc',
     ]
 
@@ -103,7 +103,7 @@ def check_connection(blog):
         return
     else:
         try:
-            response = requests.request("GET", blog.useful_domain, allow_redirects=False, timeout=10)
+            response = requests.request("GET",f'https://{blog.subdomain}.ichoria.cc', allow_redirects=False, timeout=10)
             return (f'<meta name="{ blog.subdomain }" content="look-for-the-bear-necessities">' in response.text)
         except ConnectionError:
             return False
@@ -241,4 +241,5 @@ def random_post_link():
         content__isnull=False
     )[random_index]
 
-    return f"{post.blog.useful_domain}/{post.slug}"
+    return f"https://{post.blog.subdomain}.ichoria.cc/{post.slug}"
+

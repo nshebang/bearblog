@@ -11,20 +11,19 @@ from datetime import datetime
 import re
 import json
 import os
-import boto3
 import requests
 import time
 
 from blogs.models import Blog, Media
 
-file_types = ['png', 'jpg', 'jpeg', 'tiff', 'bmp', 'gif', 'svg', 'webp', 'avif', 'heic', 'ico', 'mp4']
+file_types = ['png', 'jpg', 'jpeg', 'tiff', 'bmp', 'gif', 'svg', 'webp', 'webm', 'avif', 'heic', 'ico', 'mp4']
 
 @csrf_exempt
 @login_required
 def upload_image(request, id):
     blog = get_object_or_404(Blog, user=request.user, subdomain=id)
 
-    if request.method == "POST" and blog.user.settings.upgraded is True:
+    if request.method == "POST":
         file_links = []
         time_string = str(time.time()).split('.')[0]
 
@@ -33,36 +32,30 @@ def upload_image(request, id):
             if extension.endswith(tuple(file_types)):
                 
                 if file.size > 10 * 1024 * 1024:  # 10MB in bytes
-                    raise ValidationError(f'File {file.name} exceeds 10MB limit')
-                
+                    return HttpResponse(
+                        'El archivo debe pesar menos de 10MB para insertarlo en el post',
+                        413
+                    )
+
                 filepath = f'{blog.subdomain}-{time_string}.{extension}'
-                url = f'https://bear-images.sfo2.cdn.digitaloceanspaces.com/{filepath}'
-                file_links.append(url)
 
-                session = boto3.session.Session()
-                client = session.client(
-                    's3',
-                    endpoint_url='https://sfo2.digitaloceanspaces.com',
-                    region_name='sfo2',
-                    aws_access_key_id=os.getenv('SPACES_ACCESS_KEY_ID'),
-                    aws_secret_access_key=os.getenv('SPACES_SECRET'))
-
-                response = client.put_object(
-                    Bucket='bear-images',
-                    Key=filepath,
-                    Body=file,
-                    ContentType=file.content_type,
-                    ACL='public-read',
+                response = requests.post(
+                    'https://saki.ichoria.org',
+                    files={ 'file': (filepath, file) },
+                    headers={ 'X-Requested-With': 'Bear' }
                 )
+
+                url = response.text.replace('\n', '')
+                file_links.append(url)
 
                 # Create Media object
                 Media.objects.create(blog=blog, url=url)
             else:
-                raise ValidationError(f'Format not supported: {extension}')
+                return HttpResponse('Ese formato no se puede insertar en el post', 415)
 
         return HttpResponse(json.dumps(sorted(file_links)), 200)
 
-
+'''
 @login_required
 def media_center(request, id):
     blog = get_object_or_404(Blog, user=request.user, subdomain=id)
@@ -80,7 +73,7 @@ def media_center(request, id):
     return render(request, 'dashboard/media.html', {
         'blog': blog,
     })
-
+'''
 
 def extract_date_from_url(url):
     # Regular expression to match the timestamp in the image name
@@ -93,7 +86,7 @@ def extract_date_from_url(url):
     else:
         raise ValueError("Invalid URL format")
     
-
+'''
 def get_uploaded_images(blog):
     session = boto3.session.Session()
     client = session.client(
@@ -116,8 +109,9 @@ def get_uploaded_images(blog):
     ]
 
     return sorted(image_urls)
+'''
 
-
+'''
 @login_required
 def delete_selected_media(request, id):
     blog = get_object_or_404(Blog, user=request.user, subdomain=id)
@@ -145,11 +139,10 @@ def delete_selected_media(request, id):
             
         
     return redirect('media_center', id=id)
-
+'''
 
 def image_proxy(request, img):
-    # Construct the DigitalOcean Spaces URL
-    remote_url = f'https://bear-images.sfo2.cdn.digitaloceanspaces.com/{img}'
+    remote_url = f'https://saki.ichoria.org/{img}'
     
     # Stream the content from the remote URL
     response = requests.get(remote_url, stream=True)

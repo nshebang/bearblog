@@ -128,14 +128,14 @@ WSGI_APPLICATION = 'textblog.wsgi.application'
 
 # All-auth setup
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-if not DEBUG:
-    ACCOUNT_EMAIL_VERIFICATION = 'none'
-    ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-    ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+#if not DEBUG:
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = False
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 
 # Database
@@ -176,7 +176,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'UTC'
 
@@ -198,11 +198,11 @@ LOGIN_REDIRECT_URL = '/dashboard/'
 
 # Emailer
 
-DEFAULT_FROM_EMAIL = "ʕ•ᴥ•ʔ Bear Blog <noreply@bearblog.dev>"
-SERVER_EMAIL = "ʕ•ᴥ•ʔ Bear Admin <noreply@bearblog.dev>"
+DEFAULT_FROM_EMAIL = "Ichoria★Blogs <noreplyichoria@cock.li>"
+SERVER_EMAIL = "Ichoria★Blogs <noreplyichoria@cock.li>"
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.eu.mailgun.org'
-EMAIL_HOST_USER = 'postmaster@mg.bearblog.dev'
+EMAIL_HOST = 'mail.cock.li'
+EMAIL_HOST_USER = 'noreplyichoria@cock.li'
 EMAIL_HOST_PASSWORD = os.getenv('MAILGUN_PASSWORD', False)
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

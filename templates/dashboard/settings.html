@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Settings | Bear Blog{% endblock %}
+{% block title %}Ajustes del blog@Ichoria★Blogs{% endblock %}
 
 {% block custom_styles %}
     {% include 'styles/blog/default.css' %}
@@ -11,7 +11,7 @@
 {% block nav %}{% include '../snippets/dashboard_nav.html' %}{% endblock %}
 
 {% block content %}
-<h1>Settings</h1>
+<h1>Ajustes del blog</h1>
 <p>
     <form method="POST" class="post-form full-width">
         {% csrf_token %}
@@ -22,7 +22,7 @@
             {% endfor %}
         </p>
         {% endif %}
-        <label for="slug">Subdomain</label>
+        <label for="slug">Subdominio</label>
         <br>
         <div style="display: flex;align-items:end">
             <input
@@ -33,19 +33,16 @@
                 spellcheck="false"
                 style="max-width:200px; margin-right: 10px;"
             />
-            <span class="helptext">.bearblog.dev</span>
+            <span class="helptext">.ichoria.cc</span>
         </div>
-        <button type="submit">Save</button>
+        <button type="submit">Guardar cambios</button>
     </form>
 </p>
 <p>
-    <a href="{% url 'custom_domain_edit' id=blog.subdomain %}">Custom domain</a>
+    <a href="{% url 'directive_edit' id=blog.subdomain %}">Directivas de cabecera y pie de página</a>
 </p>
 <p>
-    <a href="{% url 'directive_edit' id=blog.subdomain %}">Header and footer directives</a>
-</p>
-<p>
-    <a href="{% url 'advanced_settings' id=blog.subdomain %}">Advanced settings</a>
+    <a href="{% url 'advanced_settings' id=blog.subdomain %}">Opciones avanzadas</a>
 </p>
 {% comment %} 
 <p>
@@ -62,11 +59,11 @@
 {% endcomment %}
 
 <p>
-    <a href="?export=true" download>Export all blog data</a>
+    <a href="?export=true" download>Exportar datos del blog</a>
 </p>
 <p>
-    <a onclick="if (confirm('Are you sure you would like to delete {{ blog.subdomain }}? This cannot be undone.')) { window.location.href='{% url 'blog_delete' blog.subdomain %}'; }">
-        Delete blog
+    <a onclick="if (confirm('¿Confirmas que quieres eliminar {{ blog.subdomain }}? Todo el contenido será borrado permanentemente.')) { window.location.href='{% url 'blog_delete' blog.subdomain %}'; }">
+        Eliminar blog
     </a>
 
 </p>

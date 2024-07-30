@@ -3,17 +3,17 @@
 {% load i18n %}
 {% load account socialaccount %}
 
-{% block head_title %}{% trans "Log In" %}{% endblock %}
+{% block head_title %}{% trans "Iniciar sesión" %}{% endblock %}
 
 {% block content %}
 
-<h1>{% trans "Log In" %}</h1>
+<h1>{% trans "Iniciar sesión" %}</h1>
 
 {% get_providers as socialaccount_providers %}
 
 {% if socialaccount_providers %}
-<p>{% blocktrans with site.name as site_name %}Please log in with one
-of your existing third party accounts. Or, <a href="{{ signup_url }}">create a Bear account</a>
+<p>{% blocktrans with site.name as site_name %}Por favor inicia sesión con algún
+proveedor tercero o <a href="{{ signup_url }}">crea una cuenta</a>.
 {% endblocktrans %}</p>
 
 <div class="socialaccount_ballot">
@@ -22,7 +22,7 @@ of your existing third party accounts. Or, <a href="{{ signup_url }}">create a B
     {% include "socialaccount/snippets/provider_list.html" with process="login" %}
   </ul>
 
-  <div class="login-or">{% trans 'or' %}</div>
+  <div class="login-or">{% trans 'o' %}</div>
 
 </div>
 
@@ -31,22 +31,28 @@ of your existing third party accounts. Or, <a href="{{ signup_url }}">create a B
 {% else %}
 <p>
   <small>
-  No account?
-  <a href="{% url 'signup_flow' %}">Create an account</a>
+  ¿No tienes cuenta?
+  <a href="{% url 'signup_flow' %}">Crea una acá</a>.
   </small>
 </p>
 {% endif %}
 
 <form class="login" method="POST" action="{% url 'account_login' %}">
   {% csrf_token %}
-  {{ form.as_p }}
+  <!-- {{ form.as_p }} -->
+  <p>
+  <input type="email" name="login" placeholder="Correo electrónico" autofocus="autofocus" required="" id="id_login">
+  </p>
+  <p>
+  <input type="password" name="password" placeholder="Contraseña" required="" id="id_password">
+  </p>
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
   {% endif %}
-  <button class="primaryAction" type="submit">{% trans "Sign In" %} &raquo;</button>
+  <button class="primaryAction" type="submit">{% trans "Iniciar sesión" %} &raquo;</button>
   <p>
     <small>
-      <a href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+      <a href="{% url 'account_reset_password' %}">{% trans "Olvidé mi contraseña" %}</a>
     </small>
   </p>
 </form>

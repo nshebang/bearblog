@@ -1,44 +1,42 @@
 {% extends 'base.html' %}
 
 {% block seo %}
-{% include 'snippets/seo_tags.html' with site_name='ʕ•ᴥ•ʔ Bear Blog' type="website" title='ʕ•ᴥ•ʔ Bear Blog' url='https://bearblog.dev' description='Free, no-nonsense, super-fast blogging' image="https://bear-images.sfo2.cdn.digitaloceanspaces.com/herman-1683556668-0.png" %}
+{% include 'snippets/seo_tags.html' with site_name='Ichoria Blogs' type="website" title='Ichoria Blogs' url='https://ichoria.cc' description='Alojamiento gratuito de blogs con Markdown.' %}
 {% endblock %}
 
 {% block nav %}
 {% endblock %}
 
 {% block content %}
-<h2 style="font-size: 1.34em">A privacy-first, no-nonsense, super-fast blogging platform</h2>
-<h3>No trackers, no javascript, no stylesheets. Just your words.</h3>
+<h2 style="font-size: 1.34em">Alojamiento gratuito de blogs con Markdown y LaTeX</h2>
 <nav>
     {% if  user.is_authenticated %}
-    <a href="/dashboard/">Dashboard</a>
+    <a href="/dashboard/">Mi cuenta</a> 
     {% else %}
-    <a href="{% url 'signup_flow' %}">Sign up</a>
-    <a href="/accounts/login/">Log in</a>
+    <a href="{% url 'signup_flow' %}">Crear una cuenta</a> 
+    <a href="/accounts/login/">Iniciar sesión</a> 
     {% endif %}
-    <a href="/discover/">Discover</a>
+    <a href="/discover/">Explorar</a>
 </nav>
-<p>
-    This is a blogging platform where words matter most.
+<p style="text-align: justify;">
+  Este es el servicio de alojamiento de blogs del proyecto
+  <a href="https://ichoria.org">ichoria★org</a>. El software que usa este 
+  servicio es una bifurcación de
+  <a href="https://github.com/HermanMartinus/bearblog">Bearblog</a>.
+  Ichoria Blogs es 100% gratuito y a diferencia de otras instancias de Bearblog,
+  acá todas las cuentas son premium por defecto y tienen acceso a todas las 
+  funciones. Actualmente la plataforma está en fase <b>beta</b>. Reportar
+  errores en <a href="https://github.com/nshebang/bearblog">Github</a>.
 </p>
 <h4>
-    Shun the bloat of the current web, embrace the <i>bear</i> necessities.
+  Ventajas del servicio
 </h4>
 <ul>
-    <li>Looks great on <b>any</b> device</li>
-    <li>Tiny (~2.7kb), optimized, and awesome pages</li>
-    <li>No trackers, ads, or scripts</li>
-    <li>Seconds to sign up</li>
-    <li>Connect your custom domain</li>
-    <li>Free themes</li>
-    <li>RSS &amp; Atom feeds</li>
-    <li>Built to last forever<sup><a href="https://herman.bearblog.dev/building-software-to-last-forever" target="_blank">*</a></sup></li>
+  <li>Los blogs son generados en HTML plano y simple</li>
+  <li>Puedes crear páginas estáticas con HTML y opcionalmente javascript</li>
+  <li>Sin publicidad</li>
+  <li>Puedes crear tu CSS personalizado o usar un tema de nuestra librería</li>
+  <li>Feeds RSS y Atom</li>
 </ul>
-<p><a href="https://herman.bearblog.dev" target="_blank">View example blog</a></p>
-<h3>
-   Publish something awesome with your <i>bear</i> hands
-   <a class="bear flex" href="https://herman.bearblog.dev/praise-for-bear/" target="_blank" style="text-decoration: none; color: inherit;"></a>
-</h3>
 
 {% endblock %}

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Upgrade | Bear Blog{% endblock %}
+{% block title %}Upgrade{% endblock %}
 
 {% block custom_styles %}
     {% include 'styles/blog/default.css' %}
@@ -9,9 +9,10 @@
 {% endblock %}
 
 {% block content %}
-<button onclick="window.history.back()">← Back</button>
+<button onclick="window.history.back()">Volver</button>
 {% comment %} <h1>Upgrade</h1> {% endcomment %}
 
+{% comment %}
 {% if not request.user.settings.upgraded %}
 <h2>Upgrade and keep the tiny internet awesome!  <span class="bear">\ʕ•ᴥ•ʔ/</span></h2>
 <p>
@@ -70,5 +71,7 @@
 {% else %}
 <h3>You've already upgraded your Bear account! <span class="bear">\ʕ•ᴥ•ʔ/</span></h3>
 {% endif %}
+
+{% endcomment %}
 
 {% endblock %}

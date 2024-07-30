@@ -8,18 +8,18 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Account" %}{% endblock %}
+{% block head_title %}{% trans "Cuenta" %}{% endblock %}
 
 {% block nav %}
 <nav>
-  <a href="/dashboard/">Back</a>
+  <a href="/dashboard/">Volver</a>
 </nav>
 {% endblock %}
 
 {% block content %}
-    <h1>{% trans "E-mail Addresses" %}</h1>
+    <h1>{% trans "Direcciones de correo electrónico" %}</h1>
 {% if user.emailaddress_set.all %}
-<p>{% trans 'The following e-mail addresses are associated with your account:' %}</p>
+<p>{% trans 'Las siguientes direcciones están asociadas a tu cuenta:' %}</p>
 
 <form action="{% url 'account_email' %}" class="email_list" method="post">
 {% csrf_token %}
@@ -33,36 +33,36 @@
 
 {{ emailaddress.email }}
     {% if emailaddress.verified %}
-    <span class="verified">{% trans "Verified" %}</span>
+    <span class="verified">{% trans "Verificada" %}</span>
     {% else %}
-    <span class="unverified">{% trans "Unverified" %}</span>
+    <span class="unverified">{% trans "Sin verificar" %}</span>
     {% endif %}
-      {% if emailaddress.primary %}<span class="primary">{% trans "Primary" %}</span>{% endif %}
+      {% if emailaddress.primary %}<span class="primary">{% trans "Primaria" %}</span>{% endif %}
 </label>
 </div>
   {% endfor %}
 
 <div class="buttonHolder">
-      <button class="secondaryAction" type="submit" name="action_primary" >{% trans 'Make Primary' %}</button>
-      <button class="secondaryAction" type="submit" name="action_send" >{% trans 'Re-send Verification' %}</button>
-      <button class="primaryAction" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
+      <button class="secondaryAction" type="submit" name="action_primary" >{% trans 'Hacer primaria' %}</button>
+      <button class="secondaryAction" type="submit" name="action_send" >{% trans 'Reenviar verificación' %}</button>
+      <button class="primaryAction" type="submit" name="action_remove" >{% trans 'Quitar' %}</button>
 </div>
 
 </fieldset>
 </form>
 
 {% else %}
-<p><strong>{% trans 'Warning:'%}</strong> {% trans "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc." %}</p>
+<p><strong>{% trans 'Advertencia:'%}</strong> {% trans "No tienes ninguna dirección de correo electrónico activa. Tu cuenta no podrá ser recuperada si olvidas la contraseña. Al mantener tu cuenta en este estado aceptas lo anterior." %}</p>
 
 {% endif %}
 
 
-    <h2>{% trans "Add E-mail Address" %}</h2>
+    <h2>{% trans "Añadir dirección de correo electrónico" %}</h2>
 
     <form method="post" action="{% url 'account_email' %}" class="add_email">
         {% csrf_token %}
         {{ form.as_p }}
-        <button name="action_add" type="submit">{% trans "Add E-mail" %}</button>
+        <button name="action_add" type="submit">{% trans "Añadir dirección" %}</button>
     </form>
 
 {% endblock %}
@@ -71,7 +71,7 @@
 {% block extra_body %}
 <script type="text/javascript">
 (function() {
-  var message = "{% trans 'Do you really want to remove the selected e-mail address?' %}";
+  var message = "{% trans '¿Quitar esta dirección?' %}";
   var actions = document.getElementsByName('action_remove');
   if (actions.length) {
     actions[0].addEventListener("click", function(e) {

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Dashboard | Bear Blog{% endblock %}
+{% block title %}Panel@Ichoria★Blogs{% endblock %}
 
 {% block custom_styles %}
     {% include 'styles/blog/default.css' %}
@@ -11,7 +11,7 @@
 {% block nav %}{% include '../snippets/dashboard_nav.html' %}{% endblock %}
 
 {% block content %}
-<h1>Home</h1>
+<h1>Inicio</h1>
 
 {% if error_messages %}
 <p style="color:lightsalmon">
@@ -23,25 +23,25 @@
 
 <form method="POST" class="post-form full-width">
     <p class="sticky-controls">
-        <button type="submit">Publish</button>
+        <button type="submit">Publicar</button>
         {% if blog %}
-        <button onclick="event.preventDefault(); window.open('{{ blog.dynamic_useful_domain }}')">View</button>
+        <button onclick="event.preventDefault(); window.open('https://{{ blog.subdomain }}.ichoria.cc')">Visualizar</button>
         {% endif %}
     </p>
     <details style="font-size: 12px; margin-bottom: 10px;">
         <summary>
-            Attributes
+          Atributos de cabecera
         </summary>
         <p>
             title: Baloo's blog<br>
-            favicon: 🐻<br>
-            meta_description: Look for the bear necessities.<br>
-            meta_image: https://example.com/image.jpeg<br>
-            lang: en<br>
+            favicon: ⭐<br>
+            meta_description: Descripción del blog.<br>
+            meta_image: https://ejemplo.tld/ejemplo.png<br>
+            lang: es<br>
             date_format: d M, Y
         </p>
         <a href="https://docs.bearblog.dev/home-page" target="_blank">
-            More info
+            Documentación (en inglés)
         </a>
     </details>
     
@@ -67,18 +67,17 @@
         id="body_content"
         name="body_content"
         style="min-height: 500px;border-top: 1px solid lightgrey;"
-        placeholder="..."
+        placeholder="Escribe sobre tu persona o tu blog..."
     >{{ blog.content }}</textarea>
 
 </form>
 
 <span class="helptext sticky">
     <span>
-        <a href='https://herman.bearblog.dev/markdown-cheatsheet/' target='_blank'>Markdown syntax</a>
+        <a href='https://tutorialmarkdown.com/' target='_blank'>Guía de Markdown</a>
     </span>
     <span>
-        <a id='upload-image'>Insert image</a> |
-        <a href="{% url 'media_center' id=blog.subdomain %}" target="_blank">Media</a>
+        <a id='upload-image'>Insertar imágen</a>&nbsp;
     </span>
 </span>
 

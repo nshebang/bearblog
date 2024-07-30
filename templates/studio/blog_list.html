@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Blog list | Bear Blog{% endblock %}
+{% block title %}Lista de blogs@Ichoria★Blogs{% endblock %}
 
 {% block custom_styles %}
     {% include 'styles/blog/default.css' %}
@@ -12,7 +12,7 @@
 
 {% block content %}
 
-<h1>Your blogs</h1>
+<h1>Tus blogs</h1>
 
 <ul>
 {% for blog in blogs %}
@@ -21,14 +21,6 @@
     </li>
 {% endfor %}
 </ul>
-<small>
-    <details>
-        <summary>Have multiple blogs on different accounts?</summary>
-        If you would like to migrate an existing blog to this account, send an email to
-        <a href="mailto:herman@bearblog.dev">herman@bearblog.dev</a> 
-        <b>from the email address associated with the blog to migrate</b>.
-    </details>
-</small>
 {% if request.user.blogs.all|length > 0 and not request.user.settings.upgraded %}
 <p>
     <a href="{% url 'upgrade' %}" style="color:salmon;" class="upgrade">Upgrade to create up to 10 blogs <span class="bear flex"></span></a>
@@ -41,53 +33,47 @@
     {% endfor %}
 </p>
 {% endif %}
-<h2>Create a new blog</h2>
+<h2>Crear un blog nuevo</h2>
 <form method="POST" class="post-form full-width">
     {% csrf_token %}
     {{ form.as_p }}
     <p>
-        <button type="submit">Create</button>
+        <button type="submit">Crear</button>
     </p>
 </form>
 
 {% endif %}
 
 
-<h2>Account</h2>
+<h2>Cuenta</h2>
 
 <p>
-    <a href="{% url 'account_logout' %}">Sign out</a>
+    <a href="{% url 'account_logout' %}">Cerrar sesión</a>
 </p>
 
 <p>
-    <a href="{% url 'dashboard_customisation' %}">Customise dashboard</a>
+    <a href="{% url 'dashboard_customisation' %}">Personalizar panel</a>
 </p>
 
 <p>
-    <a href="/accounts/email/">Update email address</a>
+    <a href="/accounts/email/">Cambiar dirección de correo electrónico</a>
 </p>
 <p>
-    <a href="/accounts/password/change/">Change password</a>
+    <a href="/accounts/password/change/">Cambiar la contraseña</a>
 </p>
 
 {% if subscription_link %}
 <p>
-    <a href="{{ subscription_link }}" target="_blank">Manage subscription</a>
+    <a href="{{ subscription_link }}" target="_blank">Suscripción</a>
 </p>
 {% endif %}
 
 <p>
     {% if subscription_link and not subscription_cancelled %}
-    <a onclick="alert('Please cancel your subscription before deleting your account.')">Delete account</a>
+    <a onclick="alert('Please cancel your subscription before deleting your account.')">Eliminar cuenta</a>
     {% else %}
-    <a href="{% url 'user_delete' %}">Delete account</a>
+    <a href="{% url 'user_delete' %}">Eliminar cuenta</a>
     {% endif %}
 </p>
-<p>
-    If you have any requests use the
-    <a href="https://bear.nolt.io" target="_blank">suggestions board</a>,
-    or if you've found a bug pop me an <a href="mailto:herman@bearblog.dev">email</a>.
-</p>
-
 
 {% endblock %}
