@@ -41,7 +41,7 @@ def upload_image(request, id):
 
                 response = requests.post(
                     'https://saki.ichoria.org',
-                    files={ 'file': (filepath, file) },
+                    files={ 'files': (filepath, file) },
                     headers={ 'X-Requested-With': 'Bear' }
                 )
 
